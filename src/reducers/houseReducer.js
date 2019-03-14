@@ -3,13 +3,13 @@ import { fromJS } from 'immutable';
 import { createSelector } from 'reselect';
 import React from "react";
 
-const ADDRESS = ({ full_address }) => <div style={{color: 'green'}}>{ full_address }</div>
+const ADDRESS = ({ full_address }) => (<div style={{color: 'green'}}>{full_address}</div>);
 
 const IMAGE = () => <div style={{color: 'green'}}>Image</div>
 
-const PRICE = () => <div style={{color: 'green'}}>PRICE</div>
+const PRICE = ({ price }) => (<div style={{color: 'green'}}>{price}</div>)
 
-const AREA = () => <div style={{color: 'green'}}>AREA</div>
+const AREA = ({ area }) => (<div style={{color: 'green'}}>{area}</div>)
 
 const initialState = fromJS({
   data: [],

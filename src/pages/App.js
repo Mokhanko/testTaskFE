@@ -13,7 +13,6 @@ const StyledWrapper = styled.div`
 `;
 
 const App = ({ templates, templateId, data, changeTemplateId }) => {
-  console.log('dat', data);
   return (
     <StyledWrapper>
       <View templateId={templateId} changeTemplateId={changeTemplateId} templates={templates} data={data}/>

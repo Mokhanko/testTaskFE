@@ -1,27 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 
 const StyledViewContainer = styled.div`
   width: 50%;
-  height: 40%;
+  height: auto;
   margin: 0 auto;
   margin-top: 50px;
   display:flex;
+  flex-direction: column;
   border: 1px solid red;
 `;
 
-const ADDRESS = ({full_address}) => <div style={{color: 'green'}}>{full_address}</div>;
+const StyledElementContainer = styled.div`
+  width: 80%;
+  min-height: fit-content;
+  margin: 0 auto;
+  margin-top: 50px;
+  display:flex;
+  flex-direction: column;
+  border: 1px solid black;
+`;
 
-function RouteWithSubRoutes({Component}) {
-  console.log('comp', Component);
+function RouteWithSubRoutes({Component, ...dat}) {
   return (
-    <Component />
+    <Component {...dat}/>
   );
 }
 
@@ -50,10 +53,11 @@ const View = ({ changeTemplateId, templateId, templates, data }) => (
         aria-label="C"
       />
     </div>
-      {data.data.map(dat => (<div>{dat.full_adress}</div>)
-        // templates.template.map((item, key) => (
-        //   <RouteWithSubRoutes Component={item.component} {...dat} key={key}/>
-        // ))
+    {data.map(dat => (<StyledElementContainer> {templates.template.map((item, key) => (
+        <RouteWithSubRoutes Component={item.component} {...dat} key={key}/>
+        ))}</StyledElementContainer>)
+
+
       )}
   </StyledViewContainer>
 );

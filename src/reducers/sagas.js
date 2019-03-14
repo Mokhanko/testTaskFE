@@ -14,10 +14,10 @@ function* dataIncomeSaga(){
     if(error){
       console.log(error);
     }else{
-      yield put(changeData(data));
+      yield put(changeData(data.data));
     }
   }finally{
-    //yield put(changeDataLoading(false));
+
   }
 }
 
