@@ -1,93 +1,22 @@
 import { createAction, handleActions } from 'redux-actions';
 import { fromJS } from 'immutable';
 import { createSelector } from 'reselect';
-import React from "react";
-
-const ADDRESS = ({ full_address }) => (<div style={{color: 'green'}}>{full_address}</div>);
-
-const IMAGE = () => <div style={{color: 'green'}}>Image</div>
-
-const PRICE = ({ price }) => (<div style={{color: 'green'}}>{price}</div>)
-
-const AREA = ({ area }) => (<div style={{color: 'green'}}>{area}</div>)
 
 const initialState = fromJS({
   data: [],
-  templateId: "0",
-  templates: [
-    {
-      "id": 1,
-      "template": [
-        {
-          "component": IMAGE,
-          "field": "images"
-        },
-        {
-          "component": ADDRESS,
-          "field": "full_address"
-        },
-        {
-          "component": PRICE,
-          "field": "price"
-        },
-        {
-          "component": AREA,
-          "field": "area"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "template": [
-        {
-          "component": ADDRESS,
-          "field": "full_address"
-        },
-        {
-          "component": IMAGE,
-          "field": "images"
-        },
-        {
-          "component": PRICE,
-          "field": "price"
-        },
-        {
-          "component": AREA,
-          "field": "area"
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "template": [
-        {
-          "component": ADDRESS,
-          "field": "full_address"
-        },
-        {
-          "component": IMAGE,
-          "field": "images",
-          "children": [
-            {
-              "component": PRICE,
-              "field": "price"
-            }
-          ]
-        },
-        {
-          "component": AREA,
-          "field": "area"
-        }
-      ]
-    }
-  ]
+  templateId: 1,
+  templates: []
 });
 
 export const startRetrieveData = createAction('START_RETRIEVE_DATA');
 
+export const startRetrieveTemplates = createAction('START_RETRIEVE_TEMPLATES');
+
 export const changeData = createAction('CHANGE_DATA', data => ({ data }));
 
 export const changeTemplateId = createAction('CHANGE_TEMPLATE_ID', value => ({ value }) );
+
+export const changeTemplates = createAction('CHANGE_TEMPLATES', templates => ({ templates }));
 
 const selectData = (state) => state.getIn(['house', 'data']);
 
@@ -104,12 +33,13 @@ export const makeSelectTemplate = createSelector(
   [selectTemplate, selectTemplateId],
   (templates, templateId) => {
     const arr = templates.toJS();
-    return arr[templateId];
+    return arr[templateId-1];
   }
 );
 
 export default handleActions({
   [changeData]: (state, { payload }) => state.set('data', fromJS(payload.data)),
+  [changeTemplates]: (state, { payload }) => state.set('templates', fromJS(payload.templates)),
   [changeTemplateId]: (state, { payload }) => state.set('templateId', payload.value)
 },
   initialState

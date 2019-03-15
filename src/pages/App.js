@@ -3,19 +3,25 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { compose, lifecycle, setPropTypes } from 'recompose';
-import { startRetrieveData, changeTemplateId } from '../reducers/houseReducer';
-import { makeSelectData, selectTemplateId, makeSelectTemplate } from '../reducers/houseReducer'
+import {
+  makeSelectData,
+  makeSelectTemplate,
+  startRetrieveData,
+  changeTemplateId,
+  startRetrieveTemplates
+} from '../reducers/houseReducer'
 import View from './View';
 
 const StyledWrapper = styled.div`
-  width: 100%;
+  width: 80%;
   height: 100%;
+  margin: 0 auto;
 `;
 
-const App = ({ templates, templateId, data, changeTemplateId }) => {
+const App = (props) => {
   return (
     <StyledWrapper>
-      <View templateId={templateId} changeTemplateId={changeTemplateId} templates={templates} data={data}/>
+      <View {...props}/>
     </StyledWrapper>
     )
 };
@@ -25,23 +31,28 @@ export default compose(
     state => ({
       data: makeSelectData(state),
       templateId: state.getIn(['house', 'templateId']),
-      templates: makeSelectTemplate(state)
+      templates: makeSelectTemplate(state),
+      templatesAll: state.getIn(['house', 'templates']).toJS()
     }),
     {
       startRetrieveData,
-      changeTemplateId
+      changeTemplateId,
+      startRetrieveTemplates
     }
   ),
   lifecycle({
     componentDidMount(){
       this.props.startRetrieveData();
+      this.props.startRetrieveTemplates();
     }
   }),
   setPropTypes({
     data: PropTypes.array.isRequired,
     templateId: PropTypes.number.isRequired,
-    templates: PropTypes.array.isRequired,
+    templates: PropTypes.object,
+    templatesAll: PropTypes.array.isRequired,
     startRetrieveData: PropTypes.func.isRequired,
+    startRetrieveTemplates: PropTypes.func.isRequired,
     changeTemplateId: PropTypes.func.isRequired
   })
 )(App);

@@ -1,65 +1,84 @@
 import React from 'react';
 import styled from 'styled-components';
+import { withStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
+import CardActionArea from "@material-ui/core/CardActionArea/CardActionArea";
+import Card from "@material-ui/core/Card/Card";
+import Grid from '@material-ui/core/Grid';
+import { ComponentsRouter } from './components';
 
-const StyledViewContainer = styled.div`
-  width: 50%;
-  height: auto;
-  margin: 0 auto;
-  margin-top: 50px;
-  display:flex;
-  flex-direction: column;
-  border: 1px solid red;
+const styles = {
+  card: {
+    width: '100%',
+    marginBottom: 50,
+    padding: 10
+  },
+  media: {
+    objectFit: 'cover',
+    marginBottom: 10,
+    width: '100%',
+    height: 400
+  },
+  content: {
+    maxWidth: '100%',
+    height: 50
+  }
+};
+
+const StyledViewText = styled.div`
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding-right: 10px;
 `;
 
-const StyledElementContainer = styled.div`
-  width: 80%;
-  min-height: fit-content;
-  margin: 0 auto;
-  margin-top: 50px;
-  display:flex;
-  flex-direction: column;
-  border: 1px solid black;
-`;
-
-function RouteWithSubRoutes({Component, ...dat}) {
-  return (
-    <Component {...dat}/>
-  );
-}
-
-const View = ({ changeTemplateId, templateId, templates, data }) => (
-  <StyledViewContainer>
-    <div>
-      <Radio
-        checked={templateId === "0"}
-        onChange={e => changeTemplateId(e.target.value)}
-        value="0"
-        name="radio-button-demo"
-        aria-label="A"
-      />
-      <Radio
-        checked={templateId === "1"}
-        onChange={e => changeTemplateId(e.target.value)}
-        value="1"
-        name="radio-button-demo"
-        aria-label="B"
-      />
-      <Radio
-        checked={templateId === "2"}
-        onChange={e => changeTemplateId(e.target.value)}
-        value="2"
-        name="radio-button-demo"
-        aria-label="C"
-      />
-    </div>
-    {data.map(dat => (<StyledElementContainer> {templates.template.map((item, key) => (
-        <RouteWithSubRoutes Component={item.component} {...dat} key={key}/>
-        ))}</StyledElementContainer>)
-
-
-      )}
-  </StyledViewContainer>
+const View = ({ changeTemplateId, templateId, templates, templatesAll, data, classes }) => (
+  <Grid container style={{flexGrow: 1}} spacing={24}>
+    <Grid container
+          item lg={12} md={12} sm={12} xs={12}
+          direction="row"
+          justify="flex-start"
+          alignItems="center"
+    >
+      <StyledViewText>View Templates</StyledViewText>
+      {templatesAll.map((templ) => (
+        <Radio
+          checked={templateId === templ.id}
+          onChange={() => changeTemplateId(templ.id)}
+          name="radio"
+          key={templ.id}
+          color="secondary"
+        />
+      ))}
+    </Grid>
+    {data.map((dat, ind) => (
+        <Grid
+          container
+          direction="row"
+          justify="space-evenly"
+          alignItems="stretch"
+          key={ind}
+          item lg={4} md={6} sm={12} xs={12}>
+          <Card className={classes.card}>
+            {templates.template.map((item, key) => {
+              return (
+                <CardActionArea key={key}>
+                  <ComponentsRouter
+                    Component={item.component}
+                    field={dat[item.field]}
+                    children={item.children}
+                    childData={dat}
+                    classes={classes}
+                  />
+                </CardActionArea>
+              )
+            })
+            }
+          </Card>
+        </Grid>
+      )
+    )
+    }
+  </Grid>
 );
 
-export default View;
+export default withStyles(styles)(View);

@@ -7,27 +7,25 @@ import configureStore from './store';
 
 const store = configureStore();
 
-// const theme = createMuiTheme({
-//   palette: {
-//     primary: {
-//       light: purple[300],
-//       main: purple[500],
-//       dark: purple[700],
-//     },
-//     secondary: {
-//       light: green[300],
-//       main: green[500],
-//       dark: green[700],
-//     },
-//   },
-//   typography: {
-//     useNextVariants: true,
-//   },
-// });
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main:'#e89eef'
+    },
+    secondary: {
+      main: '#336b87'
+    }
+  },
+  typography: {
+    useNextVariants: true,
+  }
+});
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <MuiThemeProvider theme={theme}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('root')
 );
