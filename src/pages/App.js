@@ -16,6 +16,8 @@ const StyledWrapper = styled.div`
   width: 80%;
   height: 100%;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
 `;
 
 const App = (props) => {

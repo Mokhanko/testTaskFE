@@ -5,7 +5,7 @@ import Radio from '@material-ui/core/Radio';
 import CardActionArea from "@material-ui/core/CardActionArea/CardActionArea";
 import Card from "@material-ui/core/Card/Card";
 import Grid from '@material-ui/core/Grid';
-import { ComponentsRouter } from './components';
+import ComponentsRouter from './components';
 
 const styles = {
   card: {
@@ -30,6 +30,8 @@ const StyledViewText = styled.div`
   font-weight: bold;
   padding-right: 10px;
 `;
+
+let Element;
 
 const View = ({ changeTemplateId, templateId, templates, templatesAll, data, classes }) => (
   <Grid container style={{flexGrow: 1}} spacing={24}>
@@ -60,13 +62,13 @@ const View = ({ changeTemplateId, templateId, templates, templatesAll, data, cla
           item lg={4} md={6} sm={12} xs={12}>
           <Card className={classes.card}>
             {templates.template.map((item, key) => {
+              Element = ComponentsRouter[item.component];
               return (
                 <CardActionArea key={key}>
-                  <ComponentsRouter
-                    Component={item.component}
+                 <Element
                     field={dat[item.field]}
                     children={item.children}
-                    childData={dat}
+                    {...dat}
                     classes={classes}
                   />
                 </CardActionArea>

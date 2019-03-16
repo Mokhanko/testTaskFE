@@ -6,12 +6,11 @@ import {
   startRetrieveTemplates,
   changeTemplates
 } from './houseReducer';
-import { ADDRESS, AREA, IMAGE, PRICE } from "../pages/View/components";
 
 const getHouseApiData = () => {
-  return axios.get((`http://demo4452328.mockable.io/properties`), {
+  return axios.get((process.env.REACT_APP_API_URL), {
   }).then(res => res)
-    .catch(error => error    );
+    .catch(error => error);
 };
 
 const getRadioButtons = () => {
@@ -20,19 +19,19 @@ const getRadioButtons = () => {
       "id": 1,
       "template": [
         {
-          "component": IMAGE,
+          "component": "IMAGE",
           "field": "images"
         },
         {
-          "component": ADDRESS,
+          "component": "ADDRESS",
           "field": "full_address"
         },
         {
-          "component": PRICE,
+          "component": "PRICE",
           "field": "price"
         },
         {
-          "component": AREA,
+          "component": "AREA",
           "field": "area"
         }
       ]
@@ -41,19 +40,19 @@ const getRadioButtons = () => {
       "id": 2,
       "template": [
         {
-          "component": ADDRESS,
+          "component": "ADDRESS",
           "field": "full_address"
         },
         {
-          "component": IMAGE,
+          "component": "IMAGE",
           "field": "images"
         },
         {
-          "component": PRICE,
+          "component": "PRICE",
           "field": "price"
         },
         {
-          "component": AREA,
+          "component": "AREA",
           "field": "area"
         }
       ]
@@ -62,21 +61,21 @@ const getRadioButtons = () => {
       "id": 3,
       "template": [
         {
-          "component": ADDRESS,
+          "component": "ADDRESS",
           "field": "full_address"
         },
         {
-          "component": IMAGE,
+          "component": "IMAGE",
           "field": "images",
           "children": [
             {
-              "component": PRICE,
+              "component": "PRICE",
               "field": "price"
             }
           ]
         },
         {
-          "component": AREA,
+          "component": "AREA",
           "field": "area"
         }
       ]
@@ -88,7 +87,7 @@ function* dataIncomeSaga(){
   try {
     const {data, error} = yield call(getHouseApiData);
     if (error) {
-      console.log(error);
+      console.warn(error);
     } else {
       yield put(changeData(data.data));
     }
