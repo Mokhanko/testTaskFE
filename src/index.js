@@ -1,25 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import App from './pages/App';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import App from './modules';
 import configureStore from './store';
+import theme from './theme';
 
 const store = configureStore();
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main:'#e89eef'
-    },
-    secondary: {
-      main: '#336b87'
-    }
-  },
-  typography: {
-    useNextVariants: true,
-  }
-});
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>

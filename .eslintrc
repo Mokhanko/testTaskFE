@@ -1,0 +1,43 @@
+{
+  "extends": ["eslint:recommended", "airbnb", "plugin:react/recommended"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "arrowFunctions": true,
+      "classes": true,
+      "blockBindings": true,
+      "spread": true,
+      "jsx": true
+    }
+  },
+  "rules": {
+    "array-bracket-newline": ["error", { "multiline": true }],
+    "function-paren-newline": ["error", "multiline"],
+    "no-shadow": "off",
+    "import/no-extraneous-dependencies": "off",
+    "react/jsx-filename-extension": "off",
+    "no-underscore-dangle": "off",
+    "pefer-default-export": "off",
+    "comma-dangle": "off",
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "react/prop-types": "off",
+    "max-len": ["error", { "code": 120 }],
+    "arrow-body-style": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "no-mixed-operators": "off",
+    "react/forbid-prop-types": "off",
+    "object-curly-newline": [
+      "error",
+      { "minProperties": 5, "consistent": true }
+    ]
+  },
+  "plugins": ["react", "jest"]
+}
