@@ -1,6 +1,6 @@
 import React from 'react';
-import CardMedia from '@material-ui/core/CardMedia/CardMedia';
 import styled from 'styled-components';
+import CardMedia from '@material-ui/core/CardMedia/CardMedia';
 
 const StyledImgContainer = styled.div`
   width: inherit;
